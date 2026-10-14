@@ -1,22 +1,23 @@
 #include <Arduino.h>
 #include <Adafruit_TinyUSB.h>
+#include <nRF52_PWM.h>
+
+// Pino de saída
+const int MOSFET_CTRL = D3;
+
+// PWM por hardware
+nRF52_PWM* pwm;
 
 void setup() {
-    // Inicia a comunicacao serial USB
-    Serial.begin(115200);
+    // Frequência: 31,7 kHz
+    // Duty cycle: 5%
+    pwm = new nRF52_PWM(MOSFET_CTRL, 31700.0f, 5.0f);
 
-    // Configura o LED integrado como saida
-    pinMode(LED_BUILTIN, OUTPUT);
+    if (pwm != nullptr) {
+        pwm->setPWM();
+    }
 }
 
 void loop() {
-    // Envia uma mensagem para o computador
-    Serial.println("Hello World!");
-
-    // Pisca o LED
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(1000);
-
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(1000);
+    // O periférico gera o PWM sem precisar atualizar o sinal aqui.
 }
