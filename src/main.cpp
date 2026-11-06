@@ -3,7 +3,7 @@
 #include <nRF52_PWM.h>
 
 // Pino de saída
-const int MOSFET_CTRL = D3;
+const int MOSFET_CTRL = D4;
 
 // PWM por hardware
 nRF52_PWM* pwm;
